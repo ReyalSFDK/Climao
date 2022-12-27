@@ -5,11 +5,13 @@ import {
 } from 'react-native';
 import { OpenWeatherAPI } from './API/OpenWeatherAPI';
 import { APIReverseGeocode, APIWeatherResponse } from './API/OpenWeatherAPI/types';
+import PositionLocationRequester from './API/utils/PositionLocationRequester';
 
 const lat = -12.974722;
 const lon = -38.476665;
 
 const api = new OpenWeatherAPI();
+const positionLocationRequester =  new PositionLocationRequester();
 
 const App = () => {
 	const [weatherData, setWeatherData] = React.useState<APIWeatherResponse>();
@@ -18,6 +20,7 @@ const App = () => {
 	React.useEffect(
 		() => {
 			const fech = async () => {
+				await positionLocationRequester.askForPermissionAndGetLocation();
 				const weatherResponse = await api.getWeather(lat, lon);
 				setWeatherData(weatherResponse);
 				const geoResponse = await api.getGeoLocation(lat, lon);
