@@ -2,46 +2,26 @@ import React from 'react';
 import {
 	SafeAreaView,
 	Text,
-} from "react-native";
-import Axios from 'axios';
+} from 'react-native';
+import { OpenWeatherAPI } from './API/OpenWeatherAPI';
+import { APIReverseGeocode, APIWeatherResponse } from './API/OpenWeatherAPI/types';
 
-const API_WEATHER_KEY = '79ed18677c895ac4c34decb9d6322f59';
 const lat = -12.974722;
 const lon = -38.476665;
 
+const api = new OpenWeatherAPI();
 
 const App = () => {
-	const [weatherData, setWeatherData] = React.useState();
-	const [geoData, setGeoData] = React.useState();
+	const [weatherData, setWeatherData] = React.useState<APIWeatherResponse>();
+	const [geoData, setGeoData] = React.useState<APIReverseGeocode>();
 
 	React.useEffect(
 		() => {
 			const fech = async () => {
-				const weatherResponse = await Axios.get(
-					"https://api.openweathermap.org/data/2.5/weather",
-					{
-						params: {
-							lat,
-							lon,
-							appid: API_WEATHER_KEY,
-							lang: "pt_br",
-							units: "metric",
-						}
-					}
-				);
-				setWeatherData(weatherResponse.data);
-				const geoResponse = await Axios.get(
-					"https://api.openweathermap.org/geo/1.0/reverse",
-					{
-						params: {
-							lat,
-							lon,
-							appid: API_WEATHER_KEY,
-							limit: 1,
-						}
-					}
-				);
-				setGeoData(geoResponse.data);
+				const weatherResponse = await api.getWeather(lat, lon);
+				setWeatherData(weatherResponse);
+				const geoResponse = await api.getGeoLocation(lat, lon);
+				setGeoData(geoResponse[0]);
 			};
 			fech();
 		},
