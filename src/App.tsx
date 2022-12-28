@@ -34,9 +34,9 @@ const App = () => {
 		const fech = async (pos: Position) => {
 			setIsLoading(true);
 			const weatherResponse = await api.getWeather(pos.lat, pos.lon);
-			setWeatherData(weatherResponse);
 			const geoResponse = await api.getGeoLocation(pos.lat, pos.lon);
 			setGeoData(geoResponse[0]);
+			setWeatherData(weatherResponse);
 			setIsLoading(false);
 		};
 

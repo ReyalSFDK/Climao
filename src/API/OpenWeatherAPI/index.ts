@@ -1,9 +1,8 @@
 import Axios, { AxiosInstance } from 'axios';
+import { API_WEATHER_KEY } from "@env";
 
 import { APIReverseGeocode, APIWeatherResponse } from './types';
 
-const API_WEATHER_KEY = '7f840e73aa254ed0ff28b797393ea398';
-// const API_WEATHER_KEY = '79ed18677c895ac4c34decb9d6322f59';
 export class OpenWeatherAPI {
 	public api: AxiosInstance;
 	constructor() {
