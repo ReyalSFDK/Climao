@@ -1,8 +1,9 @@
 import React from "react";
 import { Box } from "native-base";
-import { ErrorPositionSection } from '../ErrorPositionSection';
-import { RefreshButton } from '../RefreshButton';
-import { DetailsItemRow } from '../DetailsItemRow';
+
+import { ErrorPositionSection } from "../ErrorPositionSection";
+import { RefreshButton } from "../RefreshButton";
+import { DetailsItemRow } from "../DetailsItemRow";
 
 interface IProps {
 	tempMin?: number;
@@ -66,5 +67,5 @@ export const DetailsSection: React.FC<IProps> = (props) => {
 			</Box>
 			<RefreshButton onRefreshPress={onRefreshPress} isLoading={loading} />
 		</Box>
-	)
+	);
 };

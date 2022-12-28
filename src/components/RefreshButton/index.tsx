@@ -1,5 +1,5 @@
-import React from 'react';
-import { Button } from 'native-base';
+import React from "react";
+import { Button } from "native-base";
 
 interface IProps {
 	onRefreshPress: () => Promise<void>;
@@ -20,4 +20,5 @@ export const RefreshButton: React.FC<IProps> = (props) => {
 		>
 			{isLoading ? "Atualizando..." : "Atualizar"}
 		</Button>
-)}
+	);
+};

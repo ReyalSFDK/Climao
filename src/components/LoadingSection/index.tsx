@@ -1,5 +1,5 @@
 import React from "react";
-import { Spinner } from 'native-base';
+import { Spinner } from "native-base";
 
 export const LoadingSection: React.FC = () => (
 	<Spinner
@@ -9,4 +9,4 @@ export const LoadingSection: React.FC = () => (
 		size="lg"
 		color="white"
 	/>
-)
+);

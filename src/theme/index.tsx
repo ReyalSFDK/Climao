@@ -29,15 +29,15 @@ export const theme = extendTheme({
 				italic: "Roboto-MediumItalic",
 			},
 			700: {
-				normal: 'Roboto-Bold',
+				normal: "Roboto-Bold",
 			},
 			800: {
-				normal: 'Roboto-Bold',
-				italic: 'Roboto-BoldItalic',
+				normal: "Roboto-Bold",
+				italic: "Roboto-BoldItalic",
 			},
 			900: {
-				normal: 'Roboto-Bold',
-				italic: 'Roboto-BoldItalic',
+				normal: "Roboto-Bold",
+				italic: "Roboto-BoldItalic",
 			},
 		},
 	},

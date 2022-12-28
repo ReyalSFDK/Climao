@@ -1,4 +1,4 @@
-import { ComponentTheme } from 'native-base';
+import { ComponentTheme } from "native-base";
 
 export const Text: ComponentTheme = {
 	defaultProps: {
@@ -12,7 +12,7 @@ export const Text: ComponentTheme = {
 			fontWeight: 100,
 			fontStyle: "italic",
 			fontSize: "sm",
-			marginBottom: "-2"
+			marginBottom: "-2",
 		},
 		infoText: {
 			textAlign: "right",
@@ -23,4 +23,4 @@ export const Text: ComponentTheme = {
 			marginBottom: 2,
 		},
 	},
-}
+};

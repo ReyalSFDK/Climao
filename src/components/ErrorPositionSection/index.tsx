@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Text } from 'native-base';
+import { Box, Text } from "native-base";
 
 export const ErrorPositionSection: React.FC = () => (
 	<Box
@@ -21,4 +21,4 @@ export const ErrorPositionSection: React.FC = () => (
 			Enquanto isso veja como está o tempo na nossa querida Salvador.
 		</Text>
 	</Box>
-)
+);

@@ -1,8 +1,8 @@
 export interface APIWeatherResponse {
 	name: string;
 	coord: Position;
-	main: MainWeatherData,
-	wind: Wind,
+	main: MainWeatherData;
+	wind: Wind;
 	weather: Weather[];
 }
 
