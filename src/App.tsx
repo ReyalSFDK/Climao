@@ -6,6 +6,7 @@ import {
 import { OpenWeatherAPI } from './API/OpenWeatherAPI';
 import { APIReverseGeocode, APIWeatherResponse } from './API/OpenWeatherAPI/types';
 import PositionLocationRequester from './API/utils/PositionLocationRequester';
+import { NativeBaseProvider } from 'native-base';
 
 const api = new OpenWeatherAPI();
 const positionLocationRequester =  new PositionLocationRequester();
@@ -57,23 +58,25 @@ const App = () => {
 
 	return (
 		<SafeAreaView>
-			<Text>Testando chamadas da API</Text>
-			{
-				loading && <Text> Carregando </Text>
-			}
-			<Text>Weather</Text>
-			{
-				(!position && !loading)
-					? <Text>Erro ao pegar a localização, vamos carregar por padrão os dados da querida salvador, eo eor</Text>
-					: (
-						<>
-							<Text>{JSON.stringify(weatherData)}</Text>
-							<Text>-------------------------</Text>
-							<Text>GEO</Text>
-							<Text>{JSON.stringify(geoData)}</Text>
-						</>
-					)
-			}
+			<NativeBaseProvider>
+				<Text>Testando chamadas da API</Text>
+				{
+					loading && <Text> Carregando </Text>
+				}
+				<Text>Weather</Text>
+				{
+					(!position && !loading)
+						? <Text>Erro ao pegar a localização, vamos carregar por padrão os dados da querida salvador, eo eor</Text>
+						: (
+							<>
+								<Text>{JSON.stringify(weatherData)}</Text>
+								<Text>-------------------------</Text>
+								<Text>GEO</Text>
+								<Text>{JSON.stringify(geoData)}</Text>
+							</>
+						)
+				}
+			</NativeBaseProvider>
 		</SafeAreaView>
 	);
 };
