@@ -2,6 +2,11 @@ import Geolocation from "react-native-geolocation-service";
 import { PermissionsAndroid } from "react-native";
 
 export default class PositionLocationRequester {
+	public static fallbackPosition: Position = {
+		lat: -12.974722,
+		lon: -38.476665,
+	}
+
 	public getCurrentLocation = async (onSuccessCallback: (pos: Position) => void, onErrorCallback: () => void) => {
 		await Geolocation.getCurrentPosition(
 			(position) => {

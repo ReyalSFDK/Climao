@@ -1,27 +1,51 @@
 import React from 'react';
 import {
+	ImageBackground,
 	SafeAreaView,
-	Text,
 } from 'react-native';
+import { NativeBaseProvider, StatusBar, View } from 'native-base';
+
 import { OpenWeatherAPI } from './API/OpenWeatherAPI';
 import { APIReverseGeocode, APIWeatherResponse } from './API/OpenWeatherAPI/types';
-import PositionLocationRequester from './API/utils/PositionLocationRequester';
-import { NativeBaseProvider } from 'native-base';
+import { DetailsSection, LoadingSection, MainSection } from './components';
+import { theme } from './theme';
+import PositionLocationRequester from './utils/PositionLocationRequester';
 
-const api = new OpenWeatherAPI();
-const positionLocationRequester =  new PositionLocationRequester();
-
-const fallbackLocation: Position  = {
-	lat: -12.974722,
-	lon: -38.476665,
-};
+// https://www.wallpaperize.cc/2020/09/beautiful-phone-wallpapers-day-and.html
+const dayImage = require('../assets/images/day.png');
+const nightImage = require('../assets/images/night.png');
 
 const App = () => {
-	const [loading, setLoading] = React.useState(true);
+	const api = new OpenWeatherAPI();
+	const positionLocationRequester =  new PositionLocationRequester();
+
+	const [isLoading, setIsLoading] = React.useState(true);
 	const [hasErrorOnPosition, setHasErrorOnPosition] = React.useState(false);
 	const [position, setPosition] = React.useState<Position | null>(null);
 	const [weatherData, setWeatherData] = React.useState<APIWeatherResponse>();
 	const [geoData, setGeoData] = React.useState<APIReverseGeocode>();
+
+	const hours = new Date().getHours()
+	const isDayTime = hours > 6 && hours < 19
+
+	const image = isDayTime ? dayImage : nightImage;
+
+	const fetchData = async () => {
+		const fech = async (pos: Position) => {
+			setIsLoading(true);
+			const weatherResponse = await api.getWeather(pos.lat, pos.lon);
+			setWeatherData(weatherResponse);
+			const geoResponse = await api.getGeoLocation(pos.lat, pos.lon);
+			setGeoData(geoResponse[0]);
+			setIsLoading(false);
+		};
+
+		if (position) {
+			fech(position);
+		} else if (hasErrorOnPosition) {
+			fech(PositionLocationRequester.fallbackPosition);
+		}
+	}
 
 	React.useEffect(
 		() => {
@@ -39,43 +63,47 @@ const App = () => {
 
 	React.useEffect(
 		() => {
-			const fech = async (pos: Position) => {
-				const weatherResponse = await api.getWeather(pos.lat, pos.lon);
-				setWeatherData(weatherResponse);
-				const geoResponse = await api.getGeoLocation(pos.lat, pos.lon);
-				setGeoData(geoResponse[0]);
-				setLoading(false);
-			};
-
-			if (position) {
-				fech(position);
-			} else if (hasErrorOnPosition) {
-				fech(fallbackLocation);
-			}
+			fetchData();
 		},
 		[position, hasErrorOnPosition],
 	);
 
 	return (
-			<NativeBaseProvider>
+			<NativeBaseProvider theme={theme}>
 				<SafeAreaView>
-				<Text style={{ color: "black" }}>Testando chamadas da API</Text>
-				{
-					loading && <Text> Carregando </Text>
-				}
-				<Text>Weather</Text>
-				{
-					(!position && !loading)
-						? <Text>Erro ao pegar a localização, vamos carregar por padrão os dados da querida salvador, eo eor</Text>
-						: (
-							<>
-								<Text>{JSON.stringify(weatherData)}</Text>
-								<Text>-------------------------</Text>
-								<Text>GEO</Text>
-								<Text>{JSON.stringify(geoData)}</Text>
-							</>
-						)
-				}
+					<StatusBar
+						backgroundColor={isDayTime ? "#0256B7" : "#001D55"}
+					/>
+					<ImageBackground
+						source={image}
+						resizeMode="cover"
+					>
+						<View
+							display="flex"
+							height="full"
+						>
+							{
+								isLoading && (
+									<LoadingSection />
+								)
+							}
+							<MainSection
+								country={geoData?.country}
+								state={geoData?.state}
+								city={geoData?.name}
+								temeperature={weatherData?.main.temp}
+							/>
+							<DetailsSection
+								loading={isLoading}
+								onRefreshPress={() => fetchData()}
+								humidity={weatherData?.main.humidity}
+								windSpeed={weatherData?.wind.speed}
+								feelsLike={weatherData?.main.feels_like}
+								tempMax={weatherData?.main.temp_max}
+								tempMin={weatherData?.main.temp_min}
+							/>
+						</View>
+					</ImageBackground>
 				</SafeAreaView>
 			</NativeBaseProvider>
 	);
