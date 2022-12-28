@@ -95,6 +95,7 @@ const App = () => {
 							/>
 							<DetailsSection
 								loading={isLoading}
+								hasFallback={hasErrorOnPosition}
 								onRefreshPress={() => fetchData()}
 								humidity={weatherData?.main.humidity}
 								windSpeed={weatherData?.wind.speed}

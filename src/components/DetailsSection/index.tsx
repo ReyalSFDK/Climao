@@ -1,6 +1,8 @@
 import React from "react";
-import { Box, Text, Button } from "native-base";
+import { Box } from "native-base";
 import { ErrorPositionSection } from '../ErrorPositionSection';
+import { RefreshButton } from '../RefreshButton';
+import { DetailsItemRow } from '../DetailsItemRow';
 
 interface IProps {
 	tempMin?: number;
@@ -41,47 +43,28 @@ export const DetailsSection: React.FC<IProps> = (props) => {
 				paddingX={10}
 				paddingY={5}
 			>
-				<Text variant="infoTitle">
-					Temperatura Miníma
-				</Text>
-				<Text variant="infoText">
-					{tempMin?.toFixed(0) || 0}º
-				</Text>
-				<Text variant="infoTitle">
-					Temperatura Máxima
-				</Text>
-				<Text variant="infoText">
-					{tempMax?.toFixed(0) || 0}º
-				</Text>
-				<Text variant="infoTitle">
-					Sensação Térmica
-				</Text>
-				<Text variant="infoText">
-					{feelsLike?.toFixed(0) || 0}º
-				</Text>
-				<Text variant="infoTitle">
-					Velocidade do Vento
-				</Text>
-				<Text variant="infoText">
-					{windSpeed || 0} m/s
-				</Text>
-				<Text variant="infoTitle">
-					Umidade
-				</Text>
-				<Text variant="infoText">
-					{humidity || 0}%
-				</Text>
+				<DetailsItemRow
+					title="Temperatura Miníma"
+					info={`${tempMin?.toFixed(0) || 0}º`}
+				/>
+				<DetailsItemRow
+					title="Temperatura Máxima"
+					info={`${tempMax?.toFixed(0) || 0}º`}
+				/>
+				<DetailsItemRow
+					title="Sensação Térmica"
+					info={`${feelsLike?.toFixed(0) || 0}º`}
+				/>
+				<DetailsItemRow
+					title="Velocidade do Vento"
+					info={`${windSpeed || 0}º`}
+				/>
+				<DetailsItemRow
+					title="Umidade"
+					info={`${humidity || 0}º`}
+				/>
 			</Box>
-			<Button
-				onPress={() => onRefreshPress()}
-				disabled={loading}
-				color="white"
-				size="lg"
-				fontWeight="bold"
-				bgColor={!loading ? "#0155B7" : "#0155B730"}
-			>
-				{loading ? "Atualizando..." : "Atualizar"}
-			</Button>
+			<RefreshButton onRefreshPress={onRefreshPress} isLoading={loading} />
 		</Box>
 	)
 };
