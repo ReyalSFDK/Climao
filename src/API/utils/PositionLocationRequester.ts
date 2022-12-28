@@ -2,7 +2,7 @@ import Geolocation from "react-native-geolocation-service";
 import { PermissionsAndroid } from "react-native";
 
 export default class PositionLocationRequester {
-	public getCurrentLocation = async (onSuccessCallback: (pos: Position) => void) => {
+	public getCurrentLocation = async (onSuccessCallback: (pos: Position) => void, onErrorCallback: () => void) => {
 		await Geolocation.getCurrentPosition(
 			(position) => {
 				onSuccessCallback({
@@ -11,6 +11,7 @@ export default class PositionLocationRequester {
 				})
 			},
 			(error) => {
+				onErrorCallback();
 				console.log("Err", error)
 			},
 			{
@@ -23,7 +24,7 @@ export default class PositionLocationRequester {
 		)
 	}
 
-	public askForPermissionAndGetLocation = async (onSuccessCallback: (pos: Position) => void) => {
+	public askForPermissionAndGetLocation = async (onSuccessCallback: (pos: Position) => void, onErrorCallback: () => void) => {
 		try {
 			const hasPermission = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
 
@@ -40,11 +41,12 @@ export default class PositionLocationRequester {
 				);
 
 				if (granted !== "granted") {
+					onErrorCallback();
 					return;
 				}
 			}
 
-			await this.getCurrentLocation(onSuccessCallback);
+			await this.getCurrentLocation(onSuccessCallback, onErrorCallback);
 		} catch (e) {
 			console.log(e);
 		}

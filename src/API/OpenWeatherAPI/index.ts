@@ -2,13 +2,14 @@ import Axios, { AxiosInstance } from 'axios';
 
 import { APIReverseGeocode, APIWeatherResponse } from './types';
 
-const API_WEATHER_KEY = '79ed18677c895ac4c34decb9d6322f59';
+const API_WEATHER_KEY = '7f840e73aa254ed0ff28b797393ea398';
+// const API_WEATHER_KEY = '79ed18677c895ac4c34decb9d6322f59';
 export class OpenWeatherAPI {
 	public api: AxiosInstance;
 	constructor() {
 		this.api = Axios.create({
 			baseURL: "https://api.openweathermap.org/",
-		})
+		});
 	}
 
 	public getWeather = async (lat: number, lon: number): Promise<APIWeatherResponse> => {
@@ -21,9 +22,9 @@ export class OpenWeatherAPI {
 					appid: API_WEATHER_KEY,
 					lang: "pt_br",
 					units: "metric",
-				}
-			}
-		)
+				},
+			},
+		);
 
 		return response.data;
 	}
@@ -37,9 +38,9 @@ export class OpenWeatherAPI {
 					lon,
 					appid: API_WEATHER_KEY,
 					limit: 1,
-				}
-			}
-		)
+				},
+			},
+		);
 
 		return response.data;
 	}

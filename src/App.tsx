@@ -10,8 +10,14 @@ import PositionLocationRequester from './API/utils/PositionLocationRequester';
 const api = new OpenWeatherAPI();
 const positionLocationRequester =  new PositionLocationRequester();
 
+const fallbackLocation: Position  = {
+	lat: -12.974722,
+	lon: -38.476665,
+};
+
 const App = () => {
 	const [loading, setLoading] = React.useState(true);
+	const [hasErrorOnPosition, setHasErrorOnPosition] = React.useState(false);
 	const [position, setPosition] = React.useState<Position | null>(null);
 	const [weatherData, setWeatherData] = React.useState<APIWeatherResponse>();
 	const [geoData, setGeoData] = React.useState<APIReverseGeocode>();
@@ -20,8 +26,11 @@ const App = () => {
 		() => {
 			positionLocationRequester.askForPermissionAndGetLocation(
 				(pos) => {
-					setPosition(pos)
+					setPosition(pos);
 				},
+				() => {
+					setHasErrorOnPosition(true);
+				}
 			);
 		},
 		[],
@@ -39,9 +48,11 @@ const App = () => {
 
 			if (position) {
 				fech(position);
+			} else if (hasErrorOnPosition) {
+				fech(fallbackLocation);
 			}
 		},
-		[position],
+		[position, hasErrorOnPosition],
 	);
 
 	return (
@@ -53,7 +64,7 @@ const App = () => {
 			<Text>Weather</Text>
 			{
 				(!position && !loading)
-					? <Text>Erro ao pegar a localização</Text>
+					? <Text>Erro ao pegar a localização, vamos carregar por padrão os dados da querida salvador, eo eor</Text>
 					: (
 						<>
 							<Text>{JSON.stringify(weatherData)}</Text>
