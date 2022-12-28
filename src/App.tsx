@@ -57,9 +57,9 @@ const App = () => {
 	);
 
 	return (
-		<SafeAreaView>
 			<NativeBaseProvider>
-				<Text>Testando chamadas da API</Text>
+				<SafeAreaView>
+				<Text style={{ color: "black" }}>Testando chamadas da API</Text>
 				{
 					loading && <Text> Carregando </Text>
 				}
@@ -76,8 +76,8 @@ const App = () => {
 							</>
 						)
 				}
+				</SafeAreaView>
 			</NativeBaseProvider>
-		</SafeAreaView>
 	);
 };
 
