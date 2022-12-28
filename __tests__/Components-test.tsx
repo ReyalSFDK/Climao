@@ -1,6 +1,6 @@
-import React from 'react';
-import 'react-native';
-import { faker } from '@faker-js/faker';
+import React from "react";
+import "react-native";
+import { faker } from "@faker-js/faker";
 
 import {
 	DetailsItemRow,
@@ -9,23 +9,23 @@ import {
 	LoadingSection,
 	MainSection,
 	RefreshButton,
-} from '../src/components';
-import { theme } from '../src/theme';
+} from "../src/components";
+import { theme } from "../src/theme";
 
 // Note: test renderer must be required after react-native.
-import renderer from 'react-test-renderer';
-import { NativeBaseProvider } from 'native-base';
+import renderer from "react-test-renderer";
+import { NativeBaseProvider } from "native-base";
 
-describe('Testing all components', () => {
-	it('renders DetailsItemRow correctly', () => {
+describe("Testing all components", () => {
+	it("renders DetailsItemRow correctly", () => {
 		renderer.create(
 			<NativeBaseProvider theme={theme}>
 				<DetailsItemRow info="Info Test" title="Title Test"/>
-			</NativeBaseProvider>
+			</NativeBaseProvider>,
 		);
 	});
 
-	it('renders DetailsSection correctly', () => {
+	it("renders DetailsSection correctly", () => {
 		renderer.create(
 			<NativeBaseProvider theme={theme}>
 				<DetailsSection
@@ -38,27 +38,27 @@ describe('Testing all components', () => {
 					windSpeed={faker.datatype.number({ precision: 0.01, min: 1, max: 30 })}
 					humidity={faker.datatype.number(100)}
 				/>
-			</NativeBaseProvider>
+			</NativeBaseProvider>,
 		);
 	});
 
-	it('renders ErrorPositionSection correctly', () => {
+	it("renders ErrorPositionSection correctly", () => {
 		renderer.create(
 			<NativeBaseProvider theme={theme}>
 				<ErrorPositionSection />
-			</NativeBaseProvider>
+			</NativeBaseProvider>,
 		);
 	});
 
-	it('renders LoadingSection correctly', () => {
+	it("renders LoadingSection correctly", () => {
 		renderer.create(
 			<NativeBaseProvider theme={theme}>
 				<LoadingSection />
-			</NativeBaseProvider>
+			</NativeBaseProvider>,
 		);
 	});
 
-	it('renders MainSection correctly', () => {
+	it("renders MainSection correctly", () => {
 		renderer.create(
 			<NativeBaseProvider theme={theme}>
 				<MainSection
@@ -67,19 +67,19 @@ describe('Testing all components', () => {
 					temeperature={faker.datatype.number(40)}
 					state={faker.address.state()}
 				/>
-			</NativeBaseProvider>
+			</NativeBaseProvider>,
 		);
 	});
 
 
-	it('renders RefreshButton correctly', () => {
+	it("renders RefreshButton correctly", () => {
 		renderer.create(
 			<NativeBaseProvider theme={theme}>
 				<RefreshButton
 					isLoading={faker.datatype.boolean()}
 					onRefreshPress={() => Promise.resolve()}
 				/>
-			</NativeBaseProvider>
+			</NativeBaseProvider>,
 		);
 	});
 });
