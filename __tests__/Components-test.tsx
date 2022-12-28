@@ -62,7 +62,6 @@ describe("Testing all components", () => {
 		renderer.create(
 			<NativeBaseProvider theme={theme}>
 				<MainSection
-					country={faker.address.countryCode()}
 					city={faker.address.city()}
 					temeperature={faker.datatype.number(40)}
 					state={faker.address.state()}

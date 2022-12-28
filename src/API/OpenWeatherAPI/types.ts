@@ -28,7 +28,6 @@ export interface MainWeatherData {
 
 export interface APIReverseGeocode {
 	name: string;
-	country: string;
 	state: string;
 	local_names: {
 		pt: string;

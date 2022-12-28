@@ -6,12 +6,11 @@ import "moment/locale/pt-br";
 interface IProps {
 	city?: string;
 	state?: string;
-	country?: string;
 	temeperature?: number;
 }
 
 export const MainSection: React.FC<IProps> = (props) => {
-	const { city, state, country, temeperature } = props;
+	const { city, state, temeperature } = props;
 
 	return (
 		<Box
@@ -33,7 +32,7 @@ export const MainSection: React.FC<IProps> = (props) => {
 			<Text
 				fontSize="md"
 			>
-				{`${state || ""} ${country || ""}`}
+				{`${state || "\u00A0"}`}
 			</Text>
 			<Text
 				fontSize="8xl"

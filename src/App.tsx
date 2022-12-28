@@ -89,7 +89,6 @@ const App = () => {
 							)
 						}
 						<MainSection
-							country={geoData?.country}
 							state={geoData?.state}
 							city={geoData?.name}
 							temeperature={weatherData?.main.temp}
