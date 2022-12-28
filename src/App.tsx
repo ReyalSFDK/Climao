@@ -1,19 +1,20 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-var-requires */
+import React from "react";
 import {
 	ImageBackground,
 	SafeAreaView,
-} from 'react-native';
-import { NativeBaseProvider, StatusBar, View } from 'native-base';
+} from "react-native";
+import { NativeBaseProvider, StatusBar, View } from "native-base";
 
-import { OpenWeatherAPI } from './API/OpenWeatherAPI';
-import { APIReverseGeocode, APIWeatherResponse } from './API/OpenWeatherAPI/types';
-import { DetailsSection, LoadingSection, MainSection } from './components';
-import { theme } from './theme';
-import PositionLocationRequester from './utils/PositionLocationRequester';
+import { OpenWeatherAPI } from "./API/OpenWeatherAPI";
+import { APIReverseGeocode, APIWeatherResponse } from "./API/OpenWeatherAPI/types";
+import { DetailsSection, LoadingSection, MainSection } from "./components";
+import { theme } from "./theme";
+import PositionLocationRequester from "./utils/PositionLocationRequester";
 
 // https://www.wallpaperize.cc/2020/09/beautiful-phone-wallpapers-day-and.html
-const dayImage = require('../assets/images/day.png');
-const nightImage = require('../assets/images/night.png');
+const dayImage = require("../assets/images/day.png");
+const nightImage = require("../assets/images/night.png");
 
 const App = () => {
 	const api = new OpenWeatherAPI();
@@ -25,8 +26,8 @@ const App = () => {
 	const [weatherData, setWeatherData] = React.useState<APIWeatherResponse>();
 	const [geoData, setGeoData] = React.useState<APIReverseGeocode>();
 
-	const hours = new Date().getHours()
-	const isDayTime = hours > 6 && hours < 19
+	const hours = new Date().getHours();
+	const isDayTime = hours > 6 && hours < 19;
 
 	const image = isDayTime ? dayImage : nightImage;
 
@@ -45,7 +46,7 @@ const App = () => {
 		} else if (hasErrorOnPosition) {
 			fech(PositionLocationRequester.fallbackPosition);
 		}
-	}
+	};
 
 	React.useEffect(
 		() => {
@@ -55,11 +56,11 @@ const App = () => {
 				},
 				() => {
 					setHasErrorOnPosition(true);
-				}
+				},
 			);
 		},
 		[],
-	)
+	);
 
 	React.useEffect(
 		() => {
@@ -69,44 +70,44 @@ const App = () => {
 	);
 
 	return (
-			<NativeBaseProvider theme={theme}>
-				<SafeAreaView>
-					<StatusBar
-						backgroundColor={isDayTime ? "#0256B7" : "#001D55"}
-					/>
-					<ImageBackground
-						source={image}
-						resizeMode="cover"
+		<NativeBaseProvider theme={theme}>
+			<SafeAreaView>
+				<StatusBar
+					backgroundColor={isDayTime ? "#0256B7" : "#001D55"}
+				/>
+				<ImageBackground
+					source={image}
+					resizeMode="cover"
+				>
+					<View
+						display="flex"
+						height="full"
 					>
-						<View
-							display="flex"
-							height="full"
-						>
-							{
-								isLoading && (
-									<LoadingSection />
-								)
-							}
-							<MainSection
-								country={geoData?.country}
-								state={geoData?.state}
-								city={geoData?.name}
-								temeperature={weatherData?.main.temp}
-							/>
-							<DetailsSection
-								loading={isLoading}
-								hasFallback={hasErrorOnPosition}
-								onRefreshPress={() => fetchData()}
-								humidity={weatherData?.main.humidity}
-								windSpeed={weatherData?.wind.speed}
-								feelsLike={weatherData?.main.feels_like}
-								tempMax={weatherData?.main.temp_max}
-								tempMin={weatherData?.main.temp_min}
-							/>
-						</View>
-					</ImageBackground>
-				</SafeAreaView>
-			</NativeBaseProvider>
+						{
+							isLoading && (
+								<LoadingSection />
+							)
+						}
+						<MainSection
+							country={geoData?.country}
+							state={geoData?.state}
+							city={geoData?.name}
+							temeperature={weatherData?.main.temp}
+						/>
+						<DetailsSection
+							loading={isLoading}
+							hasFallback={hasErrorOnPosition}
+							onRefreshPress={() => fetchData()}
+							humidity={weatherData?.main.humidity}
+							windSpeed={weatherData?.wind.speed}
+							feelsLike={weatherData?.main.feels_like}
+							tempMax={weatherData?.main.temp_max}
+							tempMin={weatherData?.main.temp_min}
+						/>
+					</View>
+				</ImageBackground>
+			</SafeAreaView>
+		</NativeBaseProvider>
 	);
 };
 

@@ -1,7 +1,7 @@
-import Axios, { AxiosInstance } from 'axios';
+import Axios, { AxiosInstance } from "axios";
 import { API_WEATHER_KEY } from "@env";
 
-import { APIReverseGeocode, APIWeatherResponse } from './types';
+import { APIReverseGeocode, APIWeatherResponse } from "./types";
 
 export class OpenWeatherAPI {
 	public api: AxiosInstance;
@@ -13,7 +13,7 @@ export class OpenWeatherAPI {
 
 	public getWeather = async (lat: number, lon: number): Promise<APIWeatherResponse> => {
 		const response = await this.api.get<APIWeatherResponse>(
-			`data/2.5/weather`,
+			"data/2.5/weather",
 			{
 				params: {
 					lat,
@@ -26,11 +26,11 @@ export class OpenWeatherAPI {
 		);
 
 		return response.data;
-	}
+	};
 
 	public getGeoLocation = async (lat: number, lon: number): Promise<APIReverseGeocode[]> => {
 		const response = await this.api.get<APIReverseGeocode[]>(
-			`geo/1.0/reverse`,
+			"geo/1.0/reverse",
 			{
 				params: {
 					lat,
@@ -42,6 +42,5 @@ export class OpenWeatherAPI {
 		);
 
 		return response.data;
-	}
-
+	};
 }

@@ -28,7 +28,7 @@ export const MainSection: React.FC<IProps> = (props) => {
 			<Text
 				fontSize="xl"
 			>
-				{city || '\u00A0'}
+				{city || "\u00A0"}
 			</Text>
 			<Text
 				fontSize="md"
@@ -42,5 +42,5 @@ export const MainSection: React.FC<IProps> = (props) => {
 				{temeperature?.toFixed(0) || 0}º
 			</Text>
 		</Box>
-	)
+	);
 };

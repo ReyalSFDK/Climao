@@ -1,5 +1,5 @@
-import React from 'react';
-import { Text } from 'native-base';
+import React from "react";
+import { Text } from "native-base";
 
 interface IProps {
 	title?: string;
@@ -18,4 +18,5 @@ export const DetailsItemRow: React.FC<IProps> = (props) => {
 				{info}
 			</Text>
 		</>
-)}
+	);
+};

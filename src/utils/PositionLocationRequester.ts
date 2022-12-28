@@ -5,7 +5,7 @@ export default class PositionLocationRequester {
 	public static fallbackPosition: Position = {
 		lat: -12.974722,
 		lon: -38.476665,
-	}
+	};
 
 	public getCurrentLocation = async (onSuccessCallback: (pos: Position) => void, onErrorCallback: () => void) => {
 		await Geolocation.getCurrentPosition(
@@ -13,11 +13,12 @@ export default class PositionLocationRequester {
 				onSuccessCallback({
 					lat: position.coords.latitude,
 					lon: position.coords.longitude,
-				})
+				});
 			},
 			(error) => {
 				onErrorCallback();
-				console.log("Err", error)
+				// eslint-disable-next-line no-console
+				console.log("Err", error);
 			},
 			{
 				showLocationDialog: true,
@@ -25,9 +26,9 @@ export default class PositionLocationRequester {
 				enableHighAccuracy: true,
 				timeout: 15000,
 				maximumAge: 10000,
-			}
-		)
-	}
+			},
+		);
+	};
 
 	public askForPermissionAndGetLocation = async (onSuccessCallback: (pos: Position) => void, onErrorCallback: () => void) => {
 		try {
@@ -53,7 +54,8 @@ export default class PositionLocationRequester {
 
 			await this.getCurrentLocation(onSuccessCallback, onErrorCallback);
 		} catch (e) {
-			console.log(e);
+			// eslint-disable-next-line no-console
+			console.error(e);
 		}
-	}
+	};
 }
